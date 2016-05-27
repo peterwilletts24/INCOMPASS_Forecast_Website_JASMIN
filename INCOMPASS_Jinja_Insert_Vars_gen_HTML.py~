@@ -1,0 +1,168 @@
+import glob
+import numpy as np
+import re
+
+import os
+import commands
+#from flask import Flask
+#app = Flask(__name__)
+
+
+import pdb
+
+script_path = '/home/users/pdwilletts/web_page_python_scripts/'
+
+web_page_dir = '/group_workspaces/jasmin2/incompass/public/restricted/MetUM/'
+
+regions = ['India', 'SAsia']
+
+copy_dir = '/group_workspaces/jasmin2/incompass/public/restricted/MetUM_Monitoring/project/'
+
+model_runs =['glm/', 'INC_4km/', 'INC_ga6mem/']
+
+# Forecast
+
+latest_forecast_dir="/nfs/see-fs-01_users/eepdw/public_html/INCOMPASS_2015/Images/Latest_Forecast/"
+rel_image_dir_f='Images/Latest_Forecast/'
+
+TEMPLATE_FILE_f = "%sINCOMPASS_Jinja_Template_Forecast.html" % script_path
+
+# Analysis                                                                                                                          
+analysis_dir="/nfs/see-fs-01_users/eepdw/public_html/INCOMPASS_2015/Images/Analysis/"
+rel_image_dir_an='Images/Analysis/'
+
+TEMPLATE_FILE_an = "%sINCOMPASS_Jinja_Template_Analysis.html" % script_path
+
+def Compress_Files_Dont_Exist(list_of_files, search_dir_f, search_dir_fc):
+
+    dirs = ['%s%s' % (search_dir_fc, d) for d in np.unique([os.path.dirname(l).\
+strip(search_dir_f) for l in list_of_files])]
+
+    #pdb.set_trace()                                                            
+
+    for new_dir in dirs:
+
+        if not os.path.exists(new_dir):
+            dd=[]
+            nn = new_dir.strip(search_dir_f).split('/')
+            for n in nn:
+                dd.append(n)
+
+                make_path = search_dir_fc+'/'.join(dd)
+                if not os.path.exists(make_path):
+
+                    os.mkdir(make_path)
+
+    for fn in list_of_files:
+
+        new_file ='%s%spng' % (search_dir_fc, fn.strip(search_dir_f))
+        if ~os.path.exists(new_file):
+
+            #pdb.set_trace()                                                    
+
+            os.system('convert '+fn+' -strip -interlace Plane -quality 85% -uni\
+ts pixelsperinch -resample 72 '+new_file)
+
+def UpdateParams(search_dir, region):
+
+
+    #files_in_latest_dir = glob.glob('%s/*.png' % (latest_forecast_dir))
+    
+    files= np.array([re.split('_oper-glm_', fn.replace('%s' % search_dir, '').replace('.png', '')) for fn in glob.glob('%s*%s.png' % (search_dir, region) )
+                     #if not 'hPa' in fn])
+                     #if 'hPa' in fn])
+    ])
+
+    
+    #pdb.set_trace()
+    other_info= np.array([sf.replace('T+', '').split('_') for sf in files[:,1]])
+    
+    diags_full = files[:,0]
+    diags = np.unique(diags_full)
+    
+    tpluss_full = other_info[:,2]
+    tpluss = np.unique(np.array(tpluss_full, dtype=np.int))
+    
+    fdates = other_info[:,0]
+    fhours= other_info[:,1]
+
+    regions = np.unique(other_info[:,3])
+    pdb.set_trace()
+    return fdates, fhours, tpluss_full, diags_full, regions, tpluss, diags
+
+import jinja2
+#from flask import render_template
+
+templateLoader = jinja2.FileSystemLoader( searchpath="/" )
+templateEnv = jinja2.Environment( loader=templateLoader )
+
+template = templateEnv.get_template( TEMPLATE_FILE_f )
+
+
+#Forecast
+
+pdb.set_trace()
+
+os.system('rm %s*.png' % latest_forecast_dir)
+
+for mr in model_runs:
+
+    pdb.set_trace()
+    last_dir=commands.getoutput("ls -rX %s%s --ignore '*06Z' --ignore '*18Z*' | head -1" % (copy_dir, mr))
+    list_of_files = [fn for fn in glob.glob('%s%s%s/*.png' % (copy_dir, mr, last_dir))]
+    Compress_Files_Dont_Exist(list_of_files, latest_forecast_dir, search_dir_fc)
+
+
+for region in regions:
+
+    list_of_files = [fn for fn in glob.glob('%s%s/*/*/*png' % (search_dir_fc, region))]
+
+      #pdb.set_trace()
+
+    fdates, fhours, tpluss_full, diags_full, regions_notused, tpluss, diags = UpdateParams(latest_forecast_dir, region)
+
+    templateVars = { "fdates" : list(fdates),
+                     "fhours" : list(fhours),
+                 "tpluss_full" : list(tpluss_full),
+                 "diags_full" : list(diags_full),
+                 "region":region,
+                     "tpluss":list(tpluss),
+                "diagnostics":list(diags),
+                "image_dir":rel_image_dir_f
+               }
+
+    outputText = template.render( templateVars )
+
+    with open("%sLatest_Forecast_%s.html" %(web_page_dir, region), "wb") as fh:
+        fh.write(outputText)
+
+# Analysis
+
+template = templateEnv.get_template( TEMPLATE_FILE_an )
+
+for region in regions:
+    fdates, fhours, tpluss_full, diags_full, regions_notused, tpluss, diags = UpdateParams(analysis_dir, region)
+
+    tpluss_full = ['%s_%s' % (a,b) for (a,b) in zip(fdates,fhours)]
+    tpluss = np.unique(tpluss_full)
+
+    #pdb.set_trace()
+    templateVars = { "fdates" : list(fdates),
+                     "fhours" : list(fhours),
+                 "tpluss_full" : list(tpluss_full),
+                 "diags_full" : list(diags_full),
+                 "region":region,
+                     "tpluss":list(tpluss),
+                "diagnostics":list(diags),
+                "image_dir":rel_image_dir_an
+               }
+
+    outputText = template.render( templateVars )   
+
+    with open("%s/Analysis_%s.html" %(web_page_dir, region), "wb") as fh:
+        fh.write(outputText)
+#if __name__ == '__main__':
+    #app.run()
+    #app.run(host='0.0.0.0')
+    #pdb.set_trace()
+

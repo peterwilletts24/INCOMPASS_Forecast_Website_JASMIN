@@ -1,0 +1,330 @@
+<html style="" class=" js no-touch svg inlinesvg svgclippaths no-ie8compat" lang="en">
+
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Indian Satellite Images</title>
+<link rel="canonical" href=""/>
+<meta property="og:title" content="INCOMPASS 2016"/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content=""/>
+<meta property="og:image" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script>(function(w,d,u){w.readyQ=[];w.bindReadyQ=[];function p(x,y){if(x=="ready"){w.bindReadyQ.push(y);}else{w.readyQ.push(x);}};var a={ready:p,bind:p};w.$=w.jQuery=function(f){if(f===d||f===u){return a}else{p(f)}}})(window,document)</script>
+<link rel="stylesheet" href="CSS/A.app15032015b.css+cssnwr150315.css,Mcc.I1GxSb5gq4.css.pagespeed.cf.HpUc0g2lWs.css"/>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css"/>
+<link href='//fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+<script src="Javascripts/foundation31012014.min.js.pagespeed.jm.XjN6oKM9fx.js"></script>
+<script type="text/javascript" src="Javascripts/jquery-ui-1.10.3.custom.min.js.pagespeed.jm.RFoBPTHjyc.js"></script>
+ 
+
+ 
+<style>.ui-autocomplete{max-height:200px;overflow-y:auto;overflow-x:hidden;padding-right:20px}* html .ui-autocomplete{height:200px}</style>
+ 
+</head>
+
+<body>
+<style>.top-bar2 ul>li.has-dropdown a:after{border-color:transparent transparent transparent #ccc!important}.top-bar2 ul>li.has-dropdown.moved .back.title a:before{border-color:transparent #ccc transparent transparent!important}.top-bar2 ul>li.has-dropdown .dropdown{background-color:#0b5682!important}.top-bar2 ul>li.has-dropdown.moved>.dropdown li a:hover{color:#fff;background-color:#084265}.top-bar2 ul>li.has-dropdown .dropdown li label{color:#fff}.top-bar2 ul>li.has-dropdown .dropdown li a{color:#fff}</style>
+<div class="twelve columns margintop">
+<div class="row hide-for-small">
+<div class="twelve columns" style="text-align: center;">
+<div style="background-color: #ffffff; width: 728px; height: 90px; margin: -2px auto 8px auto;">
+ 
+<script type="text/javascript">;var sessix=""; var ext="0"; var cur=new Array();var aspeed=3;var animspeed=1000;var animon=0;var dorollover=0;var display="inline";var remdisplay="none";var moddisplay="none";cur[1]=1;cur[2]=1;cur[3]=1;cur[4]=1;</script>
+<script type="text/javascript">
+var urlx="";
+var fdates={{ fdates }}
+var fhours={{ fhours }}
+var tpluss_full={{ tpluss_full }}
+var diags_full={{ diags_full }}
+var end_bit={{ end_bit }}
+var start_bit={{ start_bit }}
+var tpluss={{ tpluss }}
+var month_dirs={{ month_dirs }}
+
+//var tpluss_button={{ tpluss_button }}
+
+function diff(arr1, arr2) {
+    var ret = [];
+    try{
+    for(i in arr1) {
+        if(arr2.indexOf( arr1[i] ) > -1){
+            ret.push( arr1[i] );
+        }
+        }
+        }
+    catch(e){}
+    
+    return ret;
+};
+
+Array.prototype.find = function(searchStr) {
+  var returnArray = false;
+  for (i=0; i<this.length; i++) {
+    if (typeof(searchStr) == 'function') {
+      if (searchStr.test(this[i])) {
+        if (!returnArray) { returnArray = [] }
+        returnArray.push(i);
+      }
+    } else {
+      if (this[i]===searchStr) {
+        if (!returnArray) { returnArray = [] }
+        returnArray.push(i);
+      }
+    }
+  }
+  return returnArray;
+}
+
+
+function changeimage(inx, extx_search)
+{var h1="c"+inx;
+//var hx='0'
+//var timex=document.getElementById(hx).value;
+var imgx=document.getElementById(h1).value;
+var imgt=document.getElementById(h1).value;
+
+var extx='0'
+var imgxb=imgx.split(",");imgx=imgxb[1];
+
+//var timex=document.getElementById(hx).value;
+
+d_idx = diags_full.find(imgx);
+
+if(typeof extx_search === 'undefined'){
+    var idx_search=d_idx[0]
+    var extx_search=tpluss_full[idx_search]
+ };
+
+tp_idx = tpluss_full.find(extx_search);
+
+
+idx =diff(tp_idx, d_idx);
+
+extx=tpluss_full[idx];
+diag=diags_full[idx];
+datex=fdates[idx];
+fhour=fhours[idx];
+end=end_bit[idx];
+start = start_bit[idx]
+month_dir = month_dirs[idx];
+
+url_idx = "{{ image_dir }}/"+diag+"/"+month_dir+"/"+start+"_"+datex+"_"+fhour+"_"+end+".jpg";
+
+if(diag)
+{urlx=url_idx;}
+else
+{urlx="Images/emptyimage.gif";}
+var h2="image"+inx;var h3="div"+inx;document.getElementById(h2).src=urlx;
+
+//var dx=new Date(datex.substr(0,4),datex.substr(4,2)-1,datex.substr(6,2),timex);dx.addHours(parseFloat(extx,10));
+//dxo=new String(dx.getHours());if(dxo.length<2){dxo="0"+dxo;}
+//dxd=new String(dx.getDate());if(dxd.length<2){dxd="0"+dxd;}
+//dxm=new String(dx.getMonth()+1);if(dxm.length<2){dxm="0"+dxm;}
+//var dxdo=days[dx.getDay()];var dox=dxdo+" "+dxd+"/"+dxm+" "+dxo+"Z";}
+//Date.prototype.addHours=function(n){this.setHours(this.getHours()+n)
+}
+
+function checksizes()
+{var c1=document.getElementById("c1").value;var c2=document.getElementById("c2").value;var d1=c1.split(",");var d2=c2.split(",");var c1=d1[1];var c2=d2[1];if(!c1){c1="";}
+if(!c2){c2="";}
+var width=0;var height=0;if(c1.length>0&&c2.length>0)
+{width=2;}
+else
+{if(c1.length>0||c2.length>0)
+{width=1;}}
+height=1;if(width==2)
+{document.getElementById("divo1").className="six columns";document.getElementById("divo2").className="six columns hide-for-small";}
+else
+{document.getElementById("divo1").className="twelve columns";document.getElementById("divo2").className="twelve columns hide-for-small";}}
+function viewimage(inx)
+{var h1="c"+inx;var imgxb=document.getElementById(h1).value;var imgxh=imgxb.split(",");var imgx=imgxh[1];var datex="";var timex="";var ext='0'; var extx_search=tpluss[ext];
+if(imgx)
+{urlx=url_idx;}}
+function rollover(inx)
+{if(dorollover==1)
+{hold=ext;
+hx="b"+hold.toString();
+document.getElementById(hx).className="tiny button";
+hold=inx;
+ext=inx;
+extx_search=tpluss[inx];
+hx="b"+hold.toString();
+document.getElementById(hx).className="tiny button secondary";updateslider();changeimage(1, extx_search);changeimage(2, extx_search);}}
+function clicked(inx)
+{hold=ext;
+hx="b"+hold.toString();
+document.getElementById(hx).className="tiny button";
+ext=inx;
+hold=inx;
+extx_search=tpluss[inx];
+hx="b"+hold.toString();
+document.getElementById(hx).className="tiny button secondary";
+updateslider();
+changeimage(1, extx_search);
+changeimage(2, extx_search);}
+
+function tablehide()
+{if(display=="none")
+{display="inline"
+document.getElementById("tablediv").style.display='inline';document.getElementById("tablebutton").innerHTML="Hide Buttons";}
+else
+{display="none";document.getElementById("tablediv").style.display='none';document.getElementById("tablebutton").innerHTML="Show Buttons";}}</script>
+<div class="row hide-for-small ">
+<div id="tablediv" class="twelve columns marginbottom" style="max-width: 1000px;">
+<div id="buttons">
+{% set counter = 0 -%}
+{% for tplus in tpluss -%}
+<button style="width: 90px;" class="tiny button" id="b{{ counter + loop.index0 }}" onmouseover="javascript: rollover('{{ counter + loop.index0 }}');" onclick="javascript: clicked('{{ counter + loop.index0 }}');">{{ tplus }}</button>
+{% endfor -%}
+</div></div></div><div class="row">
+<div id="dropdowns">
+<div class="three columns">
+<select class="font" id="c1" onchange="javascript:changeimage('1', extx_search);"><option value="" selected="selected">Choose Chart Type</option>
+{% set counter = 0 -%}
+{% for diagnostic in diagnostics -%}
+<option value="{{ counter + loop.index0 }},{{ diagnostic }}">{{ diagnostic }}</option>
+{% endfor -%}
+</select>
+</div>
+<div class="three columns hide-for-small end">
+<select class="font" id="c2" onchange="javascript:changeimage('2', extx_search);"><option value="">Choose Chart Type</option>
+{% set counter = 0 -%}
+{% for diagnostic in diagnostics -%}
+<option value="{{ counter + loop.index0 }},{{ diagnostic }}">{{ diagnostic }}</option>
+{% endfor -%}
+</select>
+</div></div></div>
+ 
+<div class="row">
+<div class="margintop">
+<div class="three columns hide-for-small">
+<div class="row">
+<div class="seven columns"><button id="anim" style="width: 100%" onclick="javascript: animtoggle();" class="small button radius">Animate</button></div>
+<div class="five columns end ">Speed:<div aria-disabled="false" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" id="slider-2" tabindex="1"><input id="h-value2" value="3" type="hidden"><a style="left: 75%;" class="ui-slider-handle ui-state-default ui-corner-all" href="#"></a></div></div>
+</div>
+</div>
+<div class="three columns show-for-small marginbottom">
+<button id="animmob" onclick="javascript: animtoggle();" class="small button radius">Animate</button>
+</div>
+<div class="eight columns end hide-for-small">
+<div class="row">
+<div class="ten columns">
+<button class="small button radius" onclick="javascript: previmage();">&lt;&lt;</button>
+<span aria-disabled="false" class="modelslider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" style="width: 70%;" id="slider-1" tabindex="2" onmouseup="javascript: cimage();" onkeyup="javascript: cimage();">
+<input id="h-value" value="0" type="hidden">
+<a style="left: 0%;" class="ui-slider-handle ui-state-default ui-corner-all" href="#"></a></span>
+<button class="small button radius" onclick="javascript: nextimage();">&gt;&gt;</button>
+</div>
+<input class="panel" size="4" id="dtime" value="+00" type="hidden">
+<? print(Date("l F d, Y")); ?>
+
+</div>
+</div>
+</div>
+</div>
+<div class="row show-for-small">
+<div class="mobile-two columns">
+<button class="small button radius" onclick="javascript: previmage();">&lt;&lt;</button>
+</div>
+<div class="mobile-two columns">
+<button class="small button radius" onclick="javascript: nextimage();">&gt;&gt;</button>
+</div>
+</div>
+<div class="row show-for-small">
+<div class="twelve columns">
+<input class="panel" size="4" id="dtime2" value="+00" type="text">
+</div>
+</div>
+<script type="text/javascript">$(document).ready(function(){$("#slider-1").slider({change:function(event,ui){cslide();},stop:function(event,ui){cslide();},min:0,max:{{ tpluss|length }},value:0});});var test=0;
+function cslide()
+{var sval=$("#slider-1").slider("value");
+var tplus=tpluss[sval].toString()
+if(document.getElementById("h-value")!=sval)
+{test=1;}
+else
+{test=0;}
+document.getElementById("h-value").value=sval;hold=ext;
+hx="b"+hold.toString();document.getElementById(hx).className="tiny button";
+hold=sval
+ext=sval
+hx="b"+hold.toString();document.getElementById(hx).className="tiny button secondary";
+if(test==1)
+{document.getElementById("dtime").value=tplus;
+document.getElementById("dtime2").value=tplus;
+}
+highlight(hold);};
+function highlight(inx)
+{
+var i =0;
+while(true) {
+    try {
+     var hx="b"+i;
+        if(i!=inx)
+          {document.getElementById(hx).className="tiny button";}
+        else
+          {document.getElementById(hx).className="tiny button secondary";}
+        i++;
+        
+        break;
+    } catch(e) {
+        continue;
+}}    
+
+}
+
+$(document).ready(function(){$("#slider-2").slider({stop:function(event,ui){cslide2();},min:0,max:4,value:3});});
+
+function cslide2(){var sval=$("#slider-2").slider("value");if(document.getElementById("h-value2")!=sval)
+{test=1;}
+else
+{test=0;}
+document.getElementById("h-value2").value=sval;aspeed=sval;if(aspeed==4){animspeed=500;}
+if(aspeed==3){animspeed=1000;}
+if(aspeed==2){animspeed=2000;}
+if(aspeed==1){animspeed=4000;}
+if(aspeed==0){animspeed=8000;}};function togglerollover()
+{if(dorollover==1)
+{dorollover=0;document.getElementById("rolloverbutton").innerHTML="Enable Rollover";}
+else
+{dorollover=1;document.getElementById("rolloverbutton").innerHTML="Disable Rollover";}}
+function cimage()
+{var sval=$("#slider-1").slider("value");
+var tplus=tpluss[sval].toString();
+//ext=tplus
+changeimage('1', tplus);
+changeimage('2', tplus);
+cslide();}
+function previmage()
+{var sval=$("#slider-1").slider("value");hold=sval;hold=hold-1;if(hold<0){hold=0;}
+$("#slider-1").slider("value",hold);cimage();}
+function nextimage()
+{var sval=$("#slider-1").slider("value");hold=sval;hold=hold+1;if(hold>{{ tpluss|length }}){hold={{ tpluss|length }};}
+$("#slider-1").slider("value",hold)
+cimage();}
+function animtoggle()
+{if(animon==0)
+{animon=1;document.getElementById("anim").innerHTML="&nbsp;Stop&nbsp;";document.getElementById("animmob").innerHTML="&nbsp;Stop&nbsp;";var t=setTimeout('doanim();',animspeed);}
+else
+{animon=0;document.getElementById("anim").innerHTML="Animate";document.getElementById("animmob").innerHTML="Animate";}}
+function doanim()
+{if(animon==1)
+{var sval=$("#slider-1").slider("value");hold=sval;hold=hold+1;if(hold>{{ tpluss|length }}){hold=0;}
+$("#slider-1").slider("value",hold);cimage();var t=setTimeout('doanim();',animspeed);}}
+function updateslider()
+{sv=ext
+$("#slider-1").slider("value",sv);}
+function openup(lin)
+{window.open(lin,null,'width=440, height=400, scrollbars=yes');return false;};</script>
+<div class="row">
+<div id="divo1" class="twelve columns">
+<div id="div1" style="visibility: visible;"><a href="javascript: viewimage(1);"><img src="Images/emptyimage.gif" alt="" id="image1" onload="javascript: checksizes();" border="0"></a>
+</div>
+</div>
+<div id="divo2" class="twelve columns hide-for-small">
+<div id="div2" style="visibility: visible;"><a href="javascript: viewimage(2);"><img src="Images/emptyimage.gif" alt="" id="image2" onload="javascript: checksizes();" border="0"></a>
+</div>
+</div>
+</div>
+
+</body></html>
